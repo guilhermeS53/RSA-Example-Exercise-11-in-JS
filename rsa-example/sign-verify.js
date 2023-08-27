@@ -19,13 +19,18 @@ function verificarAssinatura(mensagem, assinatura, publicKey) {
     return verify.verify(publicKey, assinatura, 'base64');
 }
 
-// mensagem de exemplo
-const mensagem = "Esta é uma mensagem íntegra.";
+// função para gerar um certificado assinado
+function gerarCertificado(mensagem, secretKey) {
+    return assinarMensagem(mensagem, secretKey);
+}
 
-// assinar a mensagem
-const assinatura = assinarMensagem(mensagem, privateKey);
-console.log("Assinatura:", assinatura);
+// função para validar uma mensagem com um certificado
+function validarMensagem(mensagem, certificado, publicKey) {
+    return verificarAssinatura(mensagem, certificado, publicKey);
+}
 
-// verificador da assinatura
-const isAssinaturaValida = verificarAssinatura(mensagem, assinatura, publicKey);
-console.log("Assinatura válida:", isAssinaturaValida);
+// Exportar as funções
+module.exports = {
+    gerarCertificado,
+    validarMensagem
+};
